@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/durgaprasadnakka/react/static/css/main.52d59849.chunk.css",
+    "main.js": "/durgaprasadnakka/react/static/js/main.f93bed69.chunk.js",
+    "main.js.map": "/durgaprasadnakka/react/static/js/main.f93bed69.chunk.js.map",
+    "runtime-main.js": "/durgaprasadnakka/react/static/js/runtime-main.a97dea0d.js",
+    "runtime-main.js.map": "/durgaprasadnakka/react/static/js/runtime-main.a97dea0d.js.map",
+    "static/js/2.c344ed1b.chunk.js": "/durgaprasadnakka/react/static/js/2.c344ed1b.chunk.js",
+    "static/js/2.c344ed1b.chunk.js.map": "/durgaprasadnakka/react/static/js/2.c344ed1b.chunk.js.map",
+    "static/js/3.8ee10771.chunk.js": "/durgaprasadnakka/react/static/js/3.8ee10771.chunk.js",
+    "static/js/3.8ee10771.chunk.js.map": "/durgaprasadnakka/react/static/js/3.8ee10771.chunk.js.map",
+    "index.html": "/durgaprasadnakka/react/index.html",
+    "static/css/main.52d59849.chunk.css.map": "/durgaprasadnakka/react/static/css/main.52d59849.chunk.css.map",
+    "static/js/2.c344ed1b.chunk.js.LICENSE.txt": "/durgaprasadnakka/react/static/js/2.c344ed1b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a97dea0d.js",
+    "static/js/2.c344ed1b.chunk.js",
+    "static/css/main.52d59849.chunk.css",
+    "static/js/main.f93bed69.chunk.js"
+  ]
+}
