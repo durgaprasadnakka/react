@@ -9,6 +9,8 @@ import About from './components/About'
 const App = () => {
   const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([])
+  var [editTask, setEdTask] = useState({})
+
 
   useEffect(() => {
     const getTasks = async () => {
@@ -36,18 +38,23 @@ const App = () => {
   }
 
   // Add Task
-  const addTask = async (task) => {
-    const res = await fetch('http://localhost:5000/tasks', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(task),
-    })
+  const addTask = async (task, id) => {
+    if(id !== ''){
+          updateTaskCall(task, id);
+    }else{
+      const res = await fetch('http://localhost:5000/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(task),
+      })
+  
+      const data = await res.json()
+  
+      setTasks([...tasks, data])
+    }
 
-    const data = await res.json()
-
-    setTasks([...tasks, data])
 
     // const id = Math.floor(Math.random() * 10000) + 1
     // const newTask = { id, ...task }
@@ -64,6 +71,41 @@ const App = () => {
       ? setTasks(tasks.filter((task) => task.id !== id))
       : alert('Error Deleting This Task')
   }
+
+  //Update Task
+  const updateTask = async (edTask) => {
+    setEdTask(edTask);
+    setShowAddTask(!showAddTask)
+   
+  }
+
+  const addNewTask = async () => {
+    setEdTask({});
+    setShowAddTask(!showAddTask)
+   
+  }
+
+    // Toggle Reminder
+    const updateTaskCall = async (task,id) => {
+      const updatedTask = await fetchTask(id)
+      updatedTask.text  = task.text;
+      updatedTask.day  = task.day;
+      updatedTask.reminder  = task.reminder;
+  
+      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(updatedTask),
+      })
+      setShowAddTask(!showAddTask);
+      const data = await res.json()
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+  
+     console.log('data', data)
+    }
 
   // Toggle Reminder
   const toggleReminder = async (id) => {
@@ -91,7 +133,7 @@ const App = () => {
     <Router>
       <div className='container'>
         <Header
-          onAdd={() => setShowAddTask(!showAddTask)}
+          onAdd={addNewTask}
           showAdd={showAddTask}
         />
         <Route
@@ -99,12 +141,14 @@ const App = () => {
           exact
           render={(props) => (
             <>
-              {showAddTask && <AddTask onAdd={addTask} />}
+              {showAddTask && <AddTask onAdd={addTask} editTask= {[editTask]} />}
               {tasks.length > 0 ? (
                 <Tasks
                   tasks={tasks}
                   onDelete={deleteTask}
                   onToggle={toggleReminder}
+                  onUpdate={updateTask}
+
                 />
               ) : (
                 'No Tasks To Show'

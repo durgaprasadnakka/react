@@ -1,9 +1,18 @@
 import { useState } from 'react'
 
-const AddTask = ({ onAdd }) => {
-  const [text, setText] = useState('')
-  const [day, setDay] = useState('')
-  const [reminder, setReminder] = useState(false)
+const AddTask = ({ onAdd, editTask }) => {
+  const isEdit = editTask[0].text ? true:false
+
+  const [text, setText] = useState(editTask[0].text ? editTask[0].text : '')
+  const [day, setDay] =  useState(editTask[0].day ? editTask[0].day : '')
+  const [reminder, setReminder] =  useState(editTask[0].reminder ? editTask[0].reminder : false)
+  const [taskId, setTaskId] =  useState(editTask[0].id ? editTask[0].id : '')
+  
+  // if(editTask[0].text){
+  //   setText(editTask[0].text)
+  //   setDay(editTask[0].day)
+  //   setReminder(editTask[0].reminder)
+  // }
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -13,11 +22,12 @@ const AddTask = ({ onAdd }) => {
       return
     }
 
-    onAdd({ text, day, reminder })
+    onAdd({ text, day, reminder}, taskId)
 
     setText('')
     setDay('')
     setReminder(false)
+    setTaskId('')
   }
 
   return (
@@ -50,7 +60,7 @@ const AddTask = ({ onAdd }) => {
         />
       </div>
 
-      <input type='submit' value='Save Task' className='btn btn-block' />
+      <input type='submit' value={isEdit? 'Update Task': 'Save Task'} className='btn btn-block' />
     </form>
   )
 }
